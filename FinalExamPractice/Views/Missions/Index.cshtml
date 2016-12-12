@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Missions";
+}
+@model IEnumerable<FinalExamPractice.Models.Mission>
+
+<h2>This is the missions page </h2>
+
+<div class=" container">
+    <div class=" row">
+        <div class=" jumbotron">
+            <h1>Please Select a mission</h1>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Select a Degree:
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                @foreach (var item in Model)
+                {
+                    string sMissionName = item.MissionName;
+                    <li>@Html.ActionLink(sMissionName, "SingleMission", "Missions", new { type = item.MissionID }, null)</li>
+                }
+
+            </ul>
+            </div>
+
+        </div>
+</div>

@@ -1,0 +1,121 @@
+﻿@model IEnumerable<FinalExamPractice.Models.MissionQuestionsMission>
+
+@{
+    ViewBag.Title = "SingleMission";
+}
+
+<h2>SingleMission</h2>
+
+
+<h1>
+    Mission
+</h1>
+<h3>
+    @Html.HiddenFor(model => model.FirstOrDefault().MissionQuestionID)
+    @Model.FirstOrDefault().MissionName;
+</h3>
+ 
+<h1>
+    Mission President
+</h1>
+<h3>
+    @Model.FirstOrDefault().MissionPresidentName
+</h3>
+
+<h1>
+    Mission Address
+</h1>
+<h3>
+    @Model.FirstOrDefault().MissionAddress
+</h3>
+
+<h1>
+    Language
+</h1>
+<h3>
+    @Model.FirstOrDefault().MissionLanguage
+</h3>
+
+<h1>
+    Climate
+</h1>
+<h3>
+    @Model.FirstOrDefault().MissionClimate
+</h3>
+
+<h1>
+    Dominante Religion
+</h1>
+<h3>
+    @Model.FirstOrDefault().MissionDominantReligion
+</h3>
+
+<br />
+
+
+<img src="@Model.FirstOrDefault().MissionFlagorSymbol" style="max-height=300px" class="img-responsive"/>
+
+
+<div class=" container">
+    <div class=" row">
+        <div class=" col-xs-12">
+            <h1 style="text-align:center; font-style:italic;">Q&A</h1>
+        </div>
+    </div>
+    <div class=" row">
+        <div class=" col-xs-8">
+            <h2 style="text-align:center;">Questions</h2>
+        </div>
+        <div class=" col-xs-4">
+            <h2 style="text-align:center;">Answers</h2>
+        </div>
+    </div>
+            
+    @foreach (var item in Model)
+    {
+        if (item.MissionQuestionID.Equals(null))
+        { }
+        else
+        {
+            
+        
+    <div class=" row">
+        <div class=" col-xs-8">
+            <h4 style="text-align:center;">@item.MissionQuestionQuestion</h4>
+        </div>
+        <div class=" col-xs-4">
+            <h4 style="text-align:center;">@item.MissionAnswer</h4>
+            <br />
+                
+            @using (Html.BeginForm("NewMissionAnswer", "Missions", new{type = item.MissionID, QID = item.MissionQuestionID}))
+            {
+                @Html.TextArea("NewAnswer")
+                <button class=" btn">Submit Answer</button>
+            }
+        </div>
+    </div>
+        }
+    }
+            
+        <hr /><br /><br />
+    }
+    <div class=" row">
+        <div class=" col-xs-12">Add New Question</div>
+    </div>
+    <div class=" row">
+        @using (Html.BeginForm("NewMissionQuestion","Missions", new{type =Model.FirstOrDefault().MissionID}))
+        {
+            
+        @Html.AntiForgeryToken()
+            
+        <div class=" col-xs-6">
+            @Html.TextArea("NewQuestion")
+        </div>
+            <div class="col-xs-6">
+                <button class="btn" type="submit">Submit</button>
+            </div>
+        }
+        }
+    </div>
+</div>
+
